@@ -89,7 +89,7 @@
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Write(inputSequence.Substring(j + 1)); // Skriver ut den sista delen i strängen, om det finns någon (från index [j] + 1 till slutet av strängen).
                     highlightSequence = inputSequence.Substring(i, j - i + 1); // Sparar den markerade delen i strängen till en annan string variabel (ersätter även eventuella befintliga strängar).
-                    Console.WriteLine(); // Enbart till för radbrytning. Går att ändra rad 85 från Write till WriteLine för samma resultat men jag tycker detta är tydligare.
+                    Console.WriteLine(); // Enbart till för radbrytning. Går att ändra rad 90 från Write till WriteLine för samma resultat men jag tycker detta är tydligare.
                     double.TryParse(highlightSequence, out parseResult); // Analyserar highlightSequence där den markerade delsträngen skall vara sparat och sparar detta med ett numeriskt värde i en annan double variabel.
                     sumOfInputSequenceSubstrings += parseResult; // Lägger in den markerade delsträngen med det numeriska värdet i en ny variabel där summan av alla delsträngar adderas ihop.
                     break;
