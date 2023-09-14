@@ -50,40 +50,72 @@
 
 
     } // Psuedokod
-
-    // string[] numbers = new string[10] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-    // string[] alfabet = new string[29] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö" };
-
-    // Exempelsträng: 29535123p48723487597645723645
-
-    string inputSequence = string.Empty;
-    string highlightSequence = string.Empty;
-
-    Console.WriteLine("Sträng:");
-    // Console.WriteLine("Vad roligt att du matade in 29535123p48723487597645723645");
-    // string inputSequence = Console.ReadLine();
-    // inputSequence = "29535123p48723487597645723645";
-    inputSequence = "11931g81488";
-
-    for (int i = 0; i < inputSequence.Length; i++)
     {
-        // highlightSequence += inputSequence[i];
-        if (char.IsDigit(inputSequence[i]))
+        // string[] nummer = new string[10] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        // string[] alfabet = new string[29] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö" };
+        // string inputSequence = string.Empty;
+        // inputSequence = "29535123p48723487597645723645";
+        // inputSequence = "0904782+393h19921g8765432654321";
+        // inputSequence = "11931g81488";
+    } // Utkommenterade variabler jag deklarerat och använt mig av för tester
+
+    string highlightSequence = string.Empty;
+    double parseResult;
+    double sumOfInputSequenceSubstrings = 0;
+
+    Console.WriteLine("Mata in en sträng:");
+    string inputSequence = Console.ReadLine();
+    Console.Clear();
+    Console.WriteLine($"Du har skrivit in följande sträng: \n{inputSequence}");
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
+    foreach (char sign in inputSequence)
+    {
+        Console.Write("-");
+    }
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine();
+
+    for (int i = 0; i < inputSequence.Length; i++) // For-loop som utför något en gång för varje index [i] i inputSequence.
+    {
+        if (char.IsDigit(inputSequence[i])) // Den yttre for-loopen tillåts bara utföra något om indexet den står på är en siffra.
         {
-            for (int j = i + 1; j < inputSequence.Length; j++)
+            for (int j = i + 1; j < inputSequence.Length; j++) // Nestlad for-loop som utför något en gång för varje resterande index [j] varje gång den yttre loopen körs (j = i + 1 för att inte jämföra samma index med varandra).
             {
-                if (inputSequence[i] == inputSequence[j])
+                if (inputSequence[i] == inputSequence[j]) // Det som ska utföras om tecknet på index [i] är samma som tecknet på index [j].
                 {
-                    Console.WriteLine(inputSequence.Substring(i, j - i + 1));
-                    highlightSequence += inputSequence.Substring(i, j - i + 1);
+                    Console.Write(inputSequence.Substring(0, i)); // Skriver ut första delen i strängen, om det finns någon (så länge index [i] är större än 0).
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write(inputSequence.Substring(i, j - i + 1)); // Skriver ut den markerade delen (i en annan färg dessutom).
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(inputSequence.Substring(j + 1)); // Skriver ut den sista delen i strängen, om det finns någon (från index [j] + 1 till slutet av strängen).
+                    highlightSequence = inputSequence.Substring(i, j - i + 1); // Sparar den markerade delen i strängen till en annan string variabel (ersätter även eventuella befintliga strängar).
+                    Console.WriteLine(); // Enbart till för radbrytning. Går att ändra rad 85 från Write till WriteLine för samma resultat men jag tycker detta är tydligare.
+                    double.TryParse(highlightSequence, out parseResult); // Analyserar highlightSequence där den markerade delsträngen skall vara sparat och sparar detta med ett numeriskt värde i en annan double variabel.
+                    sumOfInputSequenceSubstrings += parseResult; // Lägger in den markerade delsträngen med det numeriska värdet i en ny variabel där summan av alla delsträngar adderas ihop.
                     break;
                 }
-                else if (!char.IsDigit(inputSequence[j]))
+                else if (!char.IsDigit(inputSequence[j])) // Om den inre for-loopen står på ett index som inte är en siffra, så bryts den inre for-loopens nuvarande iteration och fortsätter med nästa index.
                 {
                     break;
                 }
             }
         }
     }
+
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
+    foreach (char sign in inputSequence)
+    {
+        Console.Write("-");
+    }
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine();
+    Console.Write("Summan av de markerade delsträngarna är ");
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
+    Console.Write(sumOfInputSequenceSubstrings);
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine();
+    Console.ReadKey();
 }
-Labb1();
+Labb1(); // Anropar Labb1 då jag valde att skriva allt i en metod.
+         // För min egen del är det lättare att både förstå andras och skriva egen kod om de
+         // initiala och vertikala sträcken är synliga och om all kod är indenterad.
